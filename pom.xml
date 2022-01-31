@@ -18,10 +18,6 @@
 	<name>Consola Backend</name>
 	<description></description>
 
-	<properties>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<scm>
 		<connection>scm:git:git://github.com/elabedouss/consola-backend.git</connection>
 		<developerConnection>scm:git:ssh://github.com:elabedouss/consola-backend.git</developerConnection>
