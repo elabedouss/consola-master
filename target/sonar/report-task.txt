@@ -1,6 +1,0 @@
-projectKey=com.consola:consola-backend
-serverUrl=http://localhost:9090
-serverVersion=9.2.4.50792
-dashboardUrl=http://localhost:9090/dashboard?id=com.consola%3Aconsola-backend
-ceTaskId=AX6wlhy-_Ksj9pLlac4q
-ceTaskUrl=http://localhost:9090/api/ce/task?id=AX6wlhy-_Ksj9pLlac4q
