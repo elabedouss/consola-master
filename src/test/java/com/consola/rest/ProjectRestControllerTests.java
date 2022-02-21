@@ -26,7 +26,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.consola.model.Project;
+import com.consola.model.ProjectEmployee;
+import com.consola.model.ProjectEmployeeId;
 import com.consola.model.Status;
+import com.consola.repositories.ProjectEmployeeRepository;
 import com.consola.repositories.ProjectRepository;
 
 @RunWith(SpringRunner.class)
@@ -37,11 +40,15 @@ public class ProjectRestControllerTests {
 	@Mock
 	private ProjectRepository projectRepository;
 
+	@Mock
+	private ProjectEmployeeRepository projectEmployeeRepository;
+
 	@InjectMocks
 	private ProjectRestController projectRestController;
 
 	Project project = new Project();
 	Status statusObj = new Status();
+	ProjectEmployee projectEmployeeObj = new ProjectEmployee();
 
 	LocalDate localDate = LocalDate.of(2021, Month.JANUARY, 01);
 	ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -59,6 +66,8 @@ public class ProjectRestControllerTests {
 		project.setStartDate(date);
 		project.setEndDate(date);
 		project.setStatus(statusObj);
+
+		projectEmployeeObj.setProjectEmployeeId(new ProjectEmployeeId(9999, "Oussama"));
 	}
 
 	@Test
@@ -66,6 +75,15 @@ public class ProjectRestControllerTests {
 		List<Project> projects = Arrays.asList(project);
 		Mockito.when(projectRepository.findAll()).thenReturn(projects);
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/projects")).andExpect(MockMvcResultMatchers.status().isOk());
+
+	}
+
+	@Test
+	public void getallProjects() throws Exception {
+		List<Project> projects = Arrays.asList(project);
+		Mockito.when(projectRepository.findAll()).thenReturn(projects);
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/projects/all"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
 
 	}
 
@@ -90,6 +108,20 @@ public class ProjectRestControllerTests {
 	}
 
 	@Test
+	public void checkProjectEmployee() throws Exception {
+		Optional<ProjectEmployee> projectEmployee = Optional.of(projectEmployeeObj);
+
+		projectEmployee.get().setProjectEmployeeId(new ProjectEmployeeId(9999, "Oussama"));
+
+		Mockito.when(projectEmployeeRepository.findById(new ProjectEmployeeId(9999, "Oussama")))
+				.thenReturn(projectEmployee);
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/projects/check/9999/employee/Oussama")
+				.accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("application/json"));
+		Mockito.verify(projectEmployeeRepository).findById(new ProjectEmployeeId(9999, "Oussama"));
+	}
+
+	@Test
 	public void saveProject() throws Exception {
 		String jsonString = "{\n" + "\"id\":9999,\n" + "\"name\":\"Unit test\",\n" + "\"shortName\":\"UT\"\n" + "}";
 
@@ -100,6 +132,25 @@ public class ProjectRestControllerTests {
 
 		assertEquals(201, mvcResult.getResponse().getStatus());
 		assertEquals("Project is updated successsfully", mvcResult.getResponse().getContentAsString());
+
+	}
+
+	@Test
+	public void addProjectEmployee() throws Exception {
+		String jsonString = "{\n" + "\"projectId\":9999,\n" + "\"employeeId\":\"Oussama\"\n" + "}";
+
+		ProjectEmployee projectEmployee = new ProjectEmployee();
+
+		projectEmployee.setProjectEmployeeId(new ProjectEmployeeId(9999, "Oussama"));
+
+		Mockito.when(projectEmployeeRepository.save(new ProjectEmployee(new ProjectEmployeeId(9999, "Oussama"))))
+				.thenReturn(projectEmployee);
+
+		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/projects/project-employee")
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
+
+		assertEquals(201, mvcResult.getResponse().getStatus());
+		assertEquals("Project-Employee is created successsfully", mvcResult.getResponse().getContentAsString());
 
 	}
 

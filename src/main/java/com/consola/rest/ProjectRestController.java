@@ -46,16 +46,18 @@ public class ProjectRestController {
 	}
 
 	@GetMapping("check/{projectId}/employee/{employeeId}")
-	public Optional<ProjectEmployee> checkProjectEmployee(@PathVariable("projectId") Integer projectId,
+	public ResponseEntity<Optional<ProjectEmployee>> checkProjectEmployee(@PathVariable("projectId") Integer projectId,
 			@PathVariable("employeeId") String employeeId) {
-		ProjectEmployeeId id = new ProjectEmployeeId(projectId, employeeId);
-		return projectEmployeeRepository.findById(id);
+		return new ResponseEntity<>(projectEmployeeRepository.findById(new ProjectEmployeeId(projectId, employeeId)),
+				HttpStatus.OK);
 	}
 
 	@PostMapping("/project-employee")
-	public ProjectEmployee addProjectEmployee(@RequestBody ProjectEmployeeIdDTO projectEmployeeId) {
+	public ResponseEntity<Object> addProjectEmployee(@RequestBody ProjectEmployeeIdDTO projectEmployeeId) {
 		ProjectEmployeeId id = mapper.map(projectEmployeeId, ProjectEmployeeId.class);
-		return projectEmployeeRepository.save(new ProjectEmployee(id));
+		projectEmployeeRepository.save(new ProjectEmployee(id));
+		return new ResponseEntity<>("Project-Employee is created successsfully", HttpStatus.CREATED);
+
 	}
 
 	@GetMapping("/all")
