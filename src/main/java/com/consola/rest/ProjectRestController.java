@@ -44,13 +44,13 @@ public class ProjectRestController {
 			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
 		return new ResponseEntity<>(projectRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("check/{projectId}/employee/{employeeId}")
 	public Optional<ProjectEmployee> checkProjectEmployee(@PathVariable("projectId") Integer projectId,
 			@PathVariable("employeeId") String employeeId) {
 		ProjectEmployeeId id = new ProjectEmployeeId(projectId, employeeId);
 		return projectEmployeeRepository.findById(id);
-	} 
+	}
 
 	@PostMapping("/project-employee")
 	public ProjectEmployee addProjectEmployee(@RequestBody ProjectEmployeeIdDTO projectEmployeeId) {
@@ -64,18 +64,20 @@ public class ProjectRestController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Project> projectById(@PathVariable("id") int id) {
-		return projectRepository.findById(id);
+	public ResponseEntity<Optional<Project>> projectById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(projectRepository.findById(id), HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
-	public Project saveProject(@RequestBody ProjectDTO project) {
-		return projectRepository.saveAndFlush(mapper.map(project, Project.class));
+	public ResponseEntity<Object> saveProject(@RequestBody ProjectDTO project) {
+		projectRepository.saveAndFlush(mapper.map(project, Project.class));
+		return new ResponseEntity<>("Project is updated successsfully", HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteProjectById(@PathVariable("id") int id) {
+	public ResponseEntity<Object> deleteProjectById(@PathVariable("id") int id) {
 		projectRepository.deleteById(id);
+		return new ResponseEntity<>("Project is deleted successsfully", HttpStatus.OK);
 	}
 
 }

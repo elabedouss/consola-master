@@ -3,8 +3,6 @@ package com.consola.rest;
 import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.consola.dto.EmployeeDTO;
 import com.consola.dto.LoginDTO;
-import com.consola.mail.ConsolaMailSender;
-import com.consola.mail.MailBuilder;
 import com.consola.model.Employee;
 import com.consola.repositories.EmployeeRepository;
 
@@ -33,16 +29,8 @@ public class EmployeeRestController {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	
-	@Autowired
-	private ConsolaMailSender consolaMailSender;
-	
-	@Autowired
-	private MailBuilder mailBuilder;
 
 	private ModelMapper mapper = new ModelMapper();
-	
-    private Logger logger = LogManager.getLogger(EmployeeRestController.class);
 
 	@GetMapping("")
 	public ResponseEntity<Page<Employee>> employees(
@@ -74,13 +62,7 @@ public class EmployeeRestController {
 		boolean useNumbers = true;
 		String password = RandomStringUtils.random(length, useLetters, useNumbers);
 		employee.setPassword(password);
-		Employee em = employeeRepository.saveAndFlush(mapper.map(employee, Employee.class));
-		try {
-			consolaMailSender.sendEmail(em.getEmail(), mailBuilder.subjectForPasswordMail(), mailBuilder.buildMailForPassword(em));
-		} catch (Exception e) {
-			logger.error(e);
-		}
-		return em;
+		return employeeRepository.saveAndFlush(mapper.map(employee, Employee.class));
 	}
 
 	@DeleteMapping("/{id}")

@@ -89,11 +89,11 @@ public class Project implements java.io.Serializable {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "Project_Employee", catalog = "consola", joinColumns = {
-	@JoinColumn(name = "projectId", nullable = false, updatable = false, insertable = false) }, inverseJoinColumns = {
-	@JoinColumn(name = "employeeId", nullable = false, updatable = false, insertable = false) })
+			@JoinColumn(name = "projectId", nullable = false, updatable = false, insertable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "employeeId", nullable = false, updatable = false, insertable = false) })
 	public Set<Employee> getEmployees() {
 		return this.employees;
 	}

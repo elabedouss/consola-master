@@ -7,9 +7,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.consola.mail.ConsolaMailSender;
-import com.consola.mail.MailBuilder;
-
 @Configuration
 public class AppConf implements WebMvcConfigurer {
 
@@ -18,17 +15,7 @@ public class AppConf implements WebMvcConfigurer {
 		registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE");
 	}
 
-	@Bean
-	public ConsolaMailSender consolaMailSender() {
-		return new ConsolaMailSender();
-	}
-	
-	@Bean
-	public MailBuilder mailBuilder() {
-		return new MailBuilder();
-	}
-
-	@Bean(name="messageSourceMail")
+	@Bean(name = "messageSourceMail")
 	public MessageSource messageSourceMail() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasenames("messages");
