@@ -27,29 +27,35 @@ public class StatusRestController {
 
 	@Autowired
 	private StatusRepository statusRepository;
-	
+
 	private ModelMapper mapper = new ModelMapper();
-	
+
 	@GetMapping("")
-	public ResponseEntity<Page<Status>> status(
+	public ResponseEntity<Page<Status>> getStatusPaginated(
 			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
 			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
 		return new ResponseEntity<>(statusRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/{id}")
-	public Optional<Status> statusById(@PathVariable("id") int id) {
-		return statusRepository.findById(id);
+	public ResponseEntity<Optional<Status>> getStatusById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(statusRepository.findById(id), HttpStatus.OK);
+
 	}
-	
+
 	@PostMapping("/save")
-	public Status saveStatus(@RequestBody StatusDTO status) {
-		return statusRepository.saveAndFlush(mapper.map(status, Status.class));
+	public ResponseEntity<Object> saveStatus(@RequestBody StatusDTO status) {
+		statusRepository.saveAndFlush(mapper.map(status, Status.class));
+		return new ResponseEntity<>("Status is updated successsfully", HttpStatus.CREATED);
+
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public void deleteStatusById(@PathVariable("id") int id) {
-		 statusRepository.deleteById(id);
+	public ResponseEntity<Object> deleteStatusById(@PathVariable("id") int id) {
+		statusRepository.deleteById(id);
+		return new ResponseEntity<>("Status is deleted successsfully", HttpStatus.ACCEPTED);
+
 	}
 
 }
