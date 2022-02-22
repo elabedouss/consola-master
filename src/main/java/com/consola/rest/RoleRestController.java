@@ -29,27 +29,31 @@ public class RoleRestController {
 	private RoleRepository roleRepository;
 
 	private ModelMapper mapper = new ModelMapper();
-	
+
 	@GetMapping("")
-	public ResponseEntity<Page<Role>> roles(
+	public ResponseEntity<Page<Role>> getRolesPaginated(
 			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
 			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
 		return new ResponseEntity<>(roleRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Role> roleById(@PathVariable("id") int id) {
-		return roleRepository.findById(id);
+	public ResponseEntity<Optional<Role>> getRoleById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(roleRepository.findById(id), HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
-	public Role saveRole(@RequestBody RoleDTO role) {
-		return roleRepository.saveAndFlush(mapper.map(role, Role.class));
+	public ResponseEntity<Object> saveRole(@RequestBody RoleDTO role) {
+		roleRepository.saveAndFlush(mapper.map(role, Role.class));
+		return new ResponseEntity<>("Role is updated successsfully", HttpStatus.CREATED);
+
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteRoleById(@PathVariable("id") int id) {
+	public ResponseEntity<Object> deleteRoleById(@PathVariable("id") int id) {
 		roleRepository.deleteById(id);
+		return new ResponseEntity<>("Role is deleted successsfully", HttpStatus.ACCEPTED);
+
 	}
 
 }
