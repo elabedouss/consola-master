@@ -46,11 +46,10 @@ public class StatusRestControllerTests {
 	}
 
 	@Test
-	public void getstatusStatusPaginated() throws Exception {
+	public void getStatusPaginated() throws Exception {
 		List<Status> statuslist = Arrays.asList(status);
 		Mockito.when(statusRepository.findAll()).thenReturn(statuslist);
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/status")).andExpect(MockMvcResultMatchers.status().isOk());
-
 	}
 
 	@Test
@@ -76,13 +75,11 @@ public class StatusRestControllerTests {
 
 		assertEquals(201, mvcResult.getResponse().getStatus());
 		assertEquals("Status is updated successsfully", mvcResult.getResponse().getContentAsString());
-
 	}
 
 	@Test
 	public void deleteStatusById() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/status/99").accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isAccepted());
-
 	}
 }

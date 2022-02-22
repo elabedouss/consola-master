@@ -27,33 +27,38 @@ public class NotificationRestController {
 
 	@Autowired
 	private NotificationRepository notificationRepository;
-	
+
 	@Autowired
 	private VacationRepository vacationRepository;
 
 	@GetMapping("/user/{username}")
-	public ResponseEntity<Page<Notification>> notifications(
+	public ResponseEntity<Page<Notification>> getNotificationsPaginated(
 			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
 			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex,
 			@PathVariable("username") String username) {
 		List<Vacation> vacations = vacationRepository.findAllByEmployee(new Employee(username));
-		return new ResponseEntity<>(notificationRepository.findAllByVacationIn(vacations, PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
+		return new ResponseEntity<>(
+				notificationRepository.findAllByVacationIn(vacations, PageRequest.of(pageIndex, pageSize)),
+				HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/count/{username}")
-	public Long notificationById(@PathVariable("username") String username) {
+	public ResponseEntity<Long> getCountNotificationById(@PathVariable("username") String username) {
 		List<Vacation> vacations = vacationRepository.findAllByEmployee(new Employee(username));
-		return notificationRepository.countByVacationIn(vacations);
+		return new ResponseEntity<>(notificationRepository.countByVacationIn(vacations), HttpStatus.OK);
+
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Notification> notificationById(@PathVariable("id") int id) {
-		return notificationRepository.findById(id);
+	public ResponseEntity<Optional<Notification>> getNotificationById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(notificationRepository.findById(id), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteNotificationById(@PathVariable("id") int id) {
+	public ResponseEntity<Object> deleteNotificationById(@PathVariable("id") int id) {
 		notificationRepository.deleteById(id);
+		return new ResponseEntity<>("Notification is deleted successsfully", HttpStatus.ACCEPTED);
+
 	}
 
 }
