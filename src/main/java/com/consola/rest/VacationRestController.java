@@ -41,8 +41,8 @@ public class VacationRestController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Vacation> vacationById(@PathVariable("id") int id) {
-		return vacationRepository.findById(id);
+	public ResponseEntity<Optional<Vacation>> vacationById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(vacationRepository.findById(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/approve/{id}")
@@ -66,17 +66,20 @@ public class VacationRestController {
 	}
 
 	@PostMapping("/save")
-	public Vacation saveVacation(@RequestBody VacationDTO vacation) {
-		return vacationRepository.saveAndFlush(mapper.map(vacation, Vacation.class));
+	public ResponseEntity<Object> saveVacation(@RequestBody VacationDTO vacation) {
+		return new ResponseEntity<>(vacationRepository.saveAndFlush(mapper.map(vacation, Vacation.class)),
+				HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteVacationById(@PathVariable("id") int id) {
+	public ResponseEntity<Object> deleteVacationById(@PathVariable("id") int id) {
 		vacationRepository.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 
 	@GetMapping("/username/{username}")
-	public List<Vacation> allVacationsByUsername(@PathVariable("username") String username) {
-		return vacationRepository.findAllByEmployee(new Employee(username));
+	public ResponseEntity<List<Vacation>> allVacationsByUsername(@PathVariable("username") String username) {
+		return new ResponseEntity<>(vacationRepository.findAllByEmployee(new Employee(username)), HttpStatus.OK);
+
 	}
 }

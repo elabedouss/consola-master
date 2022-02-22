@@ -74,7 +74,6 @@ public class RoleRestControllerTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
 
 		assertEquals(201, mvcResult.getResponse().getStatus());
-		assertEquals("Role is updated successsfully", mvcResult.getResponse().getContentAsString());
 	}
 
 	@Test

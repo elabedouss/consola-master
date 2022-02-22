@@ -75,7 +75,6 @@ public class VacationStatusRestControllerTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
 
 		assertEquals(201, mvcResult.getResponse().getStatus());
-		assertEquals("Vacation Status is updated successsfully", mvcResult.getResponse().getContentAsString());
 	}
 
 	@Test

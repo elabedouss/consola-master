@@ -82,7 +82,6 @@ public class EmployeeRestControllerTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
 
 		assertEquals(201, mvcResult.getResponse().getStatus());
-		assertEquals("Employee is updated successsfully", mvcResult.getResponse().getContentAsString());
 	}
 
 	@Test

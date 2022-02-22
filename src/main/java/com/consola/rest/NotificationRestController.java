@@ -57,7 +57,7 @@ public class NotificationRestController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteNotificationById(@PathVariable("id") int id) {
 		notificationRepository.deleteById(id);
-		return new ResponseEntity<>("Notification is deleted successsfully", HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
 	}
 

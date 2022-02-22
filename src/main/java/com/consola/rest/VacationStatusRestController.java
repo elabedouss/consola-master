@@ -41,20 +41,18 @@ public class VacationStatusRestController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<VacationStatus>> statusById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(vacationStatusRepository.findById(id), HttpStatus.OK);
-
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Object> saveVacationStatus(@RequestBody VacationStatusDTO status) {
-		vacationStatusRepository.saveAndFlush(mapper.map(status, VacationStatus.class));
-		return new ResponseEntity<>("Vacation Status is updated successsfully", HttpStatus.CREATED);
-
+		return new ResponseEntity<>(vacationStatusRepository.saveAndFlush(mapper.map(status, VacationStatus.class)),
+				HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteVacationStatusById(@PathVariable("id") int id) {
 		vacationStatusRepository.deleteById(id);
-		return new ResponseEntity<>("Vacation Status  is deleted successsfully", HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 
 }

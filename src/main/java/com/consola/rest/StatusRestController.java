@@ -35,27 +35,23 @@ public class StatusRestController {
 			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
 			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
 		return new ResponseEntity<>(statusRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
-
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Status>> getStatusById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(statusRepository.findById(id), HttpStatus.OK);
-
 	}
 
 	@PostMapping("/save")
 	public ResponseEntity<Object> saveStatus(@RequestBody StatusDTO status) {
-		statusRepository.saveAndFlush(mapper.map(status, Status.class));
-		return new ResponseEntity<>("Status is updated successsfully", HttpStatus.CREATED);
-
+		return new ResponseEntity<>(statusRepository.saveAndFlush(mapper.map(status, Status.class)),
+				HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteStatusById(@PathVariable("id") int id) {
 		statusRepository.deleteById(id);
-		return new ResponseEntity<>("Status is deleted successsfully", HttpStatus.ACCEPTED);
-
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 
 }

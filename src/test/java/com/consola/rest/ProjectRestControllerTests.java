@@ -131,8 +131,6 @@ public class ProjectRestControllerTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
 
 		assertEquals(201, mvcResult.getResponse().getStatus());
-		assertEquals("Project is updated successsfully", mvcResult.getResponse().getContentAsString());
-
 	}
 
 	@Test
@@ -150,15 +148,12 @@ public class ProjectRestControllerTests {
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
 
 		assertEquals(201, mvcResult.getResponse().getStatus());
-		assertEquals("Project-Employee is created successsfully", mvcResult.getResponse().getContentAsString());
-
 	}
 
 	@Test
 	public void deleteProjectById() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.delete("/api/projects/9999").accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isAccepted());
-
 	}
 
 }

@@ -56,7 +56,7 @@ public class ProjectRestController {
 	public ResponseEntity<Object> addProjectEmployee(@RequestBody ProjectEmployeeIdDTO projectEmployeeId) {
 		ProjectEmployeeId id = mapper.map(projectEmployeeId, ProjectEmployeeId.class);
 		projectEmployeeRepository.save(new ProjectEmployee(id));
-		return new ResponseEntity<>("Project-Employee is created successsfully", HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 
 	}
 
@@ -72,14 +72,14 @@ public class ProjectRestController {
 
 	@PostMapping("/save")
 	public ResponseEntity<Object> saveProject(@RequestBody ProjectDTO project) {
-		projectRepository.saveAndFlush(mapper.map(project, Project.class));
-		return new ResponseEntity<>("Project is updated successsfully", HttpStatus.CREATED);
+		return new ResponseEntity<>(projectRepository.saveAndFlush(mapper.map(project, Project.class)),
+				HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteProjectById(@PathVariable("id") int id) {
 		projectRepository.deleteById(id);
-		return new ResponseEntity<>("Project is deleted successsfully", HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 
 }

@@ -63,15 +63,15 @@ public class EmployeeRestController {
 		boolean useNumbers = true;
 		String password = RandomStringUtils.random(length, useLetters, useNumbers);
 		employee.setPassword(password);
-		employeeRepository.saveAndFlush(mapper.map(employee, Employee.class));
-		return new ResponseEntity<>("Employee is updated successsfully", HttpStatus.CREATED);
+		return new ResponseEntity<>(employeeRepository.saveAndFlush(mapper.map(employee, Employee.class)),
+				HttpStatus.CREATED);
 
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteEmployeeById(@PathVariable("id") String id) {
 		employeeRepository.deleteById(id);
-		return new ResponseEntity<>("Employee is deleted successsfully", HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
 	}
 

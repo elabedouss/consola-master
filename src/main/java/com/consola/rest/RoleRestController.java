@@ -44,16 +44,13 @@ public class RoleRestController {
 
 	@PostMapping("/save")
 	public ResponseEntity<Object> saveRole(@RequestBody RoleDTO role) {
-		roleRepository.saveAndFlush(mapper.map(role, Role.class));
-		return new ResponseEntity<>("Role is updated successsfully", HttpStatus.CREATED);
-
+		return new ResponseEntity<>(roleRepository.saveAndFlush(mapper.map(role, Role.class)), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> deleteRoleById(@PathVariable("id") int id) {
 		roleRepository.deleteById(id);
-		return new ResponseEntity<>("Role is deleted successsfully", HttpStatus.ACCEPTED);
-
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 
 }
