@@ -33,7 +33,7 @@ public class EmployeeRestController {
 	private ModelMapper mapper = new ModelMapper();
 
 	@GetMapping("")
-	public ResponseEntity<Page<Employee>> employees(
+	public ResponseEntity<Page<Employee>> getEmployeePaginated(
 			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
 			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
 		return new ResponseEntity<>(employeeRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
@@ -51,23 +51,28 @@ public class EmployeeRestController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Employee> employeeById(@PathVariable("id") String id) {
-		return employeeRepository.findById(id);
+	public ResponseEntity<Optional<Employee>> employeeById(@PathVariable("id") String id) {
+		return new ResponseEntity<>(employeeRepository.findById(id), HttpStatus.OK);
+
 	}
 
 	@PostMapping("/save")
-	public Employee saveEmployee(@RequestBody EmployeeDTO employee) {
+	public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeDTO employee) {
 		int length = 10;
 		boolean useLetters = true;
 		boolean useNumbers = true;
 		String password = RandomStringUtils.random(length, useLetters, useNumbers);
 		employee.setPassword(password);
-		return employeeRepository.saveAndFlush(mapper.map(employee, Employee.class));
+		employeeRepository.saveAndFlush(mapper.map(employee, Employee.class));
+		return new ResponseEntity<>("Employee is updated successsfully", HttpStatus.CREATED);
+
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteEmployeeById(@PathVariable("id") String id) {
+	public ResponseEntity<Object> deleteEmployeeById(@PathVariable("id") String id) {
 		employeeRepository.deleteById(id);
+		return new ResponseEntity<>("Employee is deleted successsfully", HttpStatus.ACCEPTED);
+
 	}
 
 }
