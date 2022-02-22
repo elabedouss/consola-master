@@ -29,27 +29,32 @@ public class VacationStatusRestController {
 	private VacationStatusRepository vacationStatusRepository;
 
 	private ModelMapper mapper = new ModelMapper();
-	
+
 	@GetMapping("")
-	public ResponseEntity<Page<VacationStatus>> status(
+	public ResponseEntity<Page<VacationStatus>> getVacationStatusPaginated(
 			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
 			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
-		return new ResponseEntity<>(vacationStatusRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
+		return new ResponseEntity<>(vacationStatusRepository.findAll(PageRequest.of(pageIndex, pageSize)),
+				HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public Optional<VacationStatus> statusById(@PathVariable("id") int id) {
-		return vacationStatusRepository.findById(id);
+	public ResponseEntity<Optional<VacationStatus>> statusById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(vacationStatusRepository.findById(id), HttpStatus.OK);
+
 	}
 
 	@PostMapping("/save")
-	public VacationStatus saveStatus(@RequestBody VacationStatusDTO status) {
-		return vacationStatusRepository.saveAndFlush(mapper.map(status, VacationStatus.class));
+	public ResponseEntity<Object> saveVacationStatus(@RequestBody VacationStatusDTO status) {
+		vacationStatusRepository.saveAndFlush(mapper.map(status, VacationStatus.class));
+		return new ResponseEntity<>("Vacation Status is updated successsfully", HttpStatus.CREATED);
+
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteStatusById(@PathVariable("id") int id) {
+	public ResponseEntity<Object> deleteVacationStatusById(@PathVariable("id") int id) {
 		vacationStatusRepository.deleteById(id);
+		return new ResponseEntity<>("Vacation Status  is deleted successsfully", HttpStatus.ACCEPTED);
 	}
 
 }
