@@ -33,6 +33,7 @@
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
 		<sonar.language>java</sonar.language>
+		<maven.compiler.release>11</maven.compiler.release>
 	</properties>
 
 	<dependencies>
@@ -132,7 +133,6 @@
 								<goal>prepare-agent</goal>
 							</goals>
 						</execution>
-						<!-- attached to Maven test phase -->
 						<execution>
 							<id>report</id>
 							<phase>test</phase>
