@@ -27,59 +27,64 @@ import com.consola.repositories.VacationStatusRepository;
 @RunWith(SpringRunner.class)
 public class VacationStatusRestControllerTests {
 
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-	@Mock
-	private VacationStatusRepository vacationStatusRepository;
+    @Mock
+    private VacationStatusRepository vacationStatusRepository;
 
-	@InjectMocks
-	private VacationStatusRestController vacationStatusRestController;
+    @InjectMocks
+    private VacationStatusRestController vacationStatusRestController;
 
-	VacationStatus vacationStatus = new VacationStatus();
+    VacationStatus vacationStatus = new VacationStatus();
 
-	@Before
-	public void setUp() {
-		mockMvc = MockMvcBuilders.standaloneSetup(vacationStatusRestController).build();
+    @Before
+    public void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(vacationStatusRestController).build();
 
-		vacationStatus.setId(99);
-		vacationStatus.setName("Accepted");
-	}
+        vacationStatus.setId(99);
+        vacationStatus.setName("Accepted");
+    }
 
-	@Test
-	public void getRolesPaginated() throws Exception {
-		List<VacationStatus> vacationStatuslist = Arrays.asList(vacationStatus);
-		Mockito.when(vacationStatusRepository.findAll()).thenReturn(vacationStatuslist);
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/vacation-status"))
-				.andExpect(MockMvcResultMatchers.status().isOk());
-	}
+    @Test
+    public void getRolesPaginated() throws Exception {
+        List<VacationStatus> vacationStatuslist = Arrays.asList(vacationStatus, vacationStatus);
+        Mockito.when(vacationStatusRepository.findAll()).thenReturn(vacationStatuslist);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/vacation-status"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
-	@Test
-	public void getRoleById() throws Exception {
-		Optional<VacationStatus> resultObj = Optional.of(vacationStatus);
+    @Test
+    public void getRoleById() throws Exception {
+        Optional<VacationStatus> resultObj = Optional.of(vacationStatus);
 
-		Mockito.when(vacationStatusRepository.findById(99)).thenReturn(resultObj);
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/vacation-status/99").accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-				.andExpect(jsonPath("$.id").value(99)).andExpect(jsonPath("$.name").value("Accepted"));
-		Mockito.verify(vacationStatusRepository).findById(99);
-	}
+        Mockito.when(vacationStatusRepository.findById(99)).thenReturn(resultObj);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/vacation-status/99").accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(jsonPath("$.id").value(99)).andExpect(jsonPath("$.name").value("Accepted"));
+        Mockito.verify(vacationStatusRepository).findById(99);
+    }
 
-	@Test
-	public void saveRole() throws Exception {
-		String jsonString = "{\n" + "\"id\":99,\n" + "\"name\":\"Accepted\"\n" + "}";
+    @Test
+    public void saveRole() throws Exception {
+        String jsonString = """
+                {
+                    "id": 99,
+                    "name": "Accepted"
+                }
+                """;
 
-		Mockito.when(vacationStatusRepository.saveAndFlush(vacationStatus)).thenReturn(vacationStatus);
+        Mockito.when(vacationStatusRepository.saveAndFlush(vacationStatus)).thenReturn(vacationStatus);
 
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/vacation-status/save")
-				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/vacation-status/save")
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
 
-		assertEquals(201, mvcResult.getResponse().getStatus());
-	}
+        assertEquals(201, mvcResult.getResponse().getStatus());
+    }
 
-	@Test
-	public void deleteRoleById() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/vacation-status/99").accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isAccepted());
-	}
+    @Test
+    public void deleteRoleById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/vacation-status/99").accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isAccepted());
+    }
 }

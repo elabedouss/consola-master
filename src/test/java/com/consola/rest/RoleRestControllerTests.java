@@ -27,58 +27,58 @@ import com.consola.repositories.RoleRepository;
 @RunWith(SpringRunner.class)
 public class RoleRestControllerTests {
 
-	private MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-	@Mock
-	private RoleRepository roleRepository;
+    @Mock
+    private RoleRepository roleRepository;
 
-	@InjectMocks
-	private RoleRestController roleRestController;
+    @InjectMocks
+    private RoleRestController roleRestController;
 
-	Role role = new Role();
+    Role role = new Role();
 
-	@Before
-	public void setUp() {
-		mockMvc = MockMvcBuilders.standaloneSetup(roleRestController).build();
+    @Before
+    public void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(roleRestController).build();
 
-		role.setId(99);
-		role.setName("admin");
-	}
+        role.setId(99);
+        role.setName("admin");
+    }
 
-	@Test
-	public void getRolesPaginated() throws Exception {
-		List<Role> roleslist = Arrays.asList(role);
-		Mockito.when(roleRepository.findAll()).thenReturn(roleslist);
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/roles")).andExpect(MockMvcResultMatchers.status().isOk());
-	}
+    @Test
+    public void getRolesPaginated() throws Exception {
+        List<Role> roleslist = Arrays.asList(role, role);
+        Mockito.when(roleRepository.findAll()).thenReturn(roleslist);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/roles")).andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
-	@Test
-	public void getRoleById() throws Exception {
-		Optional<Role> resultObj = Optional.of(role);
+    @Test
+    public void getRoleById() throws Exception {
+        Optional<Role> resultObj = Optional.of(role);
 
-		Mockito.when(roleRepository.findById(99)).thenReturn(resultObj);
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/roles/99").accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-				.andExpect(jsonPath("$.id").value(99)).andExpect(jsonPath("$.name").value("admin"));
-		Mockito.verify(roleRepository).findById(99);
-	}
+        Mockito.when(roleRepository.findById(99)).thenReturn(resultObj);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/roles/99").accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().contentType("application/json")).andExpect(jsonPath("$.id").value(99)).andExpect(jsonPath("$.name").value("admin"));
+        Mockito.verify(roleRepository).findById(99);
+    }
 
-	@Test
-	public void saveRole() throws Exception {
-		String jsonString = "{\n" + "\"id\":99,\n" + "\"name\":\"admin\"\n" + "}";
+    @Test
+    public void saveRole() throws Exception {
+        String jsonString = """
+                {
+                    "id": 99,
+                    "name": "admin"
+                }
+                """;
 
-		Mockito.when(roleRepository.saveAndFlush(role)).thenReturn(role);
+        Mockito.when(roleRepository.saveAndFlush(role)).thenReturn(role);
 
-		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/roles/save")
-				.contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/api/roles/save").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonString)).andReturn();
 
-		assertEquals(201, mvcResult.getResponse().getStatus());
-	}
+        assertEquals(201, mvcResult.getResponse().getStatus());
+    }
 
-	@Test
-	public void deleteRoleById() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/api/roles/99").accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isAccepted());
-	}
+    @Test
+    public void deleteRoleById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/roles/99").accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isAccepted());
+    }
 }

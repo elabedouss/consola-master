@@ -3,11 +3,7 @@ package com.consola.rest;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.ZoneId;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,9 +43,6 @@ public class NotificationRestControllerTests {
 	Notification notification = new Notification();
 	Vacation vacation = new Vacation();
 
-	LocalDate localDate = LocalDate.of(2021, Month.JANUARY, 01);
-	ZoneId defaultZoneId = ZoneId.systemDefault();
-	Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
 
 	@Before
 	public void setUp() {
@@ -62,7 +55,7 @@ public class NotificationRestControllerTests {
 
 	@Test
 	public void getNotificationsPaginated() throws Exception {
-		List<Notification> notificationList = Arrays.asList(notification);
+		List<Notification> notificationList = Arrays.asList(notification,notification);
 		Mockito.when(notificationRepository.findAll()).thenReturn(notificationList);
 		mockMvc.perform(MockMvcRequestBuilders.get("/api/notifications/user/oussama"))
 				.andExpect(MockMvcResultMatchers.status().isOk());
@@ -71,7 +64,7 @@ public class NotificationRestControllerTests {
 
 	@Test
 	public void getCountNotificationById() throws Exception {
-		List<Vacation> vacationList = Arrays.asList(vacation);
+		List<Vacation> vacationList = Arrays.asList(vacation,vacation);
 		long resultObj = 1;
 
 		Mockito.when(notificationRepository.countByVacationIn(vacationList)).thenReturn(resultObj);
