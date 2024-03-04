@@ -2,8 +2,8 @@ package com.consola.rest;
 
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -21,36 +21,34 @@ import com.consola.dto.RoleDTO;
 import com.consola.model.Role;
 import com.consola.repositories.RoleRepository;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/roles")
 public class RoleRestController {
 
-	@Autowired
-	private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-	private ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = new ModelMapper();
 
-	@GetMapping("")
-	public ResponseEntity<Page<Role>> getRolesPaginated(
-			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
-		return new ResponseEntity<>(roleRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
-	}
+    @GetMapping("")
+    public ResponseEntity<Page<Role>> getRolesPaginated(@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize, @RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
+        return new ResponseEntity<>(roleRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Role>> getRoleById(@PathVariable("id") int id) {
-		return new ResponseEntity<>(roleRepository.findById(id), HttpStatus.OK);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Role>> getRoleById(@PathVariable("id") int id) {
+        return new ResponseEntity<>(roleRepository.findById(id), HttpStatus.OK);
+    }
 
-	@PostMapping("/save")
-	public ResponseEntity<Object> saveRole(@RequestBody RoleDTO role) {
-		return new ResponseEntity<>(roleRepository.saveAndFlush(mapper.map(role, Role.class)), HttpStatus.CREATED);
-	}
+    @PostMapping("/save")
+    public ResponseEntity<Object> saveRole(@RequestBody RoleDTO role) {
+        return new ResponseEntity<>(roleRepository.saveAndFlush(mapper.map(role, Role.class)), HttpStatus.CREATED);
+    }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteRoleById(@PathVariable("id") int id) {
-		roleRepository.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
-	}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteRoleById(@PathVariable("id") int id) {
+        roleRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
 }

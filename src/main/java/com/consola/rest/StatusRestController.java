@@ -2,8 +2,8 @@ package com.consola.rest;
 
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -21,37 +21,37 @@ import com.consola.dto.StatusDTO;
 import com.consola.model.Status;
 import com.consola.repositories.StatusRepository;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/status")
 public class StatusRestController {
 
-	@Autowired
-	private StatusRepository statusRepository;
+    private final StatusRepository statusRepository;
 
-	private ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = new ModelMapper();
 
-	@GetMapping("")
-	public ResponseEntity<Page<Status>> getStatusPaginated(
-			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
-		return new ResponseEntity<>(statusRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
-	}
+    @GetMapping("")
+    public ResponseEntity<Page<Status>> getStatusPaginated(
+            @RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
+        return new ResponseEntity<>(statusRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Status>> getStatusById(@PathVariable("id") int id) {
-		return new ResponseEntity<>(statusRepository.findById(id), HttpStatus.OK);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Status>> getStatusById(@PathVariable("id") int id) {
+        return new ResponseEntity<>(statusRepository.findById(id), HttpStatus.OK);
+    }
 
-	@PostMapping("/save")
-	public ResponseEntity<Object> saveStatus(@RequestBody StatusDTO status) {
-		return new ResponseEntity<>(statusRepository.saveAndFlush(mapper.map(status, Status.class)),
-				HttpStatus.CREATED);
-	}
+    @PostMapping("/save")
+    public ResponseEntity<Object> saveStatus(@RequestBody StatusDTO status) {
+        return new ResponseEntity<>(statusRepository.saveAndFlush(mapper.map(status, Status.class)),
+                HttpStatus.CREATED);
+    }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteStatusById(@PathVariable("id") int id) {
-		statusRepository.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
-	}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteStatusById(@PathVariable("id") int id) {
+        statusRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
 }

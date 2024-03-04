@@ -12,14 +12,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Vacation_Status", catalog = "consola")
+@Table(name = "Vacation_Status")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class VacationStatus implements java.io.Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,12 +7,15 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
+import java.io.Serial;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
 public class ProjectEmployeeId implements java.io.Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Column(name = "projectId", nullable = false)
     private Integer projectId;

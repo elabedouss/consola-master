@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,9 +23,10 @@ import jakarta.persistence.TemporalType;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Notification", catalog = "consola")
+@Table(name = "Notification")
 public class Notification implements java.io.Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

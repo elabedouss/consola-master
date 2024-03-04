@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,9 +27,10 @@ import jakarta.persistence.TemporalType;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Project", catalog = "consola")
+@Table(name = "Project")
 public class Project implements java.io.Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +50,7 @@ public class Project implements java.io.Serializable {
     @Column(name = "endDate", length = 10)
     private Date endDate;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "Project_Employee", catalog = "consola", joinColumns = {
+    @JoinTable(name = "Project_Employee", joinColumns = {
             @JoinColumn(name = "projectId", nullable = false, updatable = false, insertable = false)}, inverseJoinColumns = {
             @JoinColumn(name = "employeeId", nullable = false, updatable = false, insertable = false)})
     private Set<Employee> employees = new HashSet<>(0);

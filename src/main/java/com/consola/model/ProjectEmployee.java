@@ -9,14 +9,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Project_Employee", catalog = "consola")
+@Table(name = "Project_Employee")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ProjectEmployee implements java.io.Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     private ProjectEmployeeId projectEmployeeId;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
 import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,9 +22,10 @@ import jakarta.persistence.TemporalType;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Vacation", catalog = "consola")
+@Table(name = "Vacation")
 public class Vacation implements java.io.Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

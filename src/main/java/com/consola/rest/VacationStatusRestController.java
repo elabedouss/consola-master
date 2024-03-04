@@ -2,8 +2,8 @@ package com.consola.rest;
 
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -21,38 +21,38 @@ import com.consola.dto.VacationStatusDTO;
 import com.consola.model.VacationStatus;
 import com.consola.repositories.VacationStatusRepository;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/vacation-status")
 public class VacationStatusRestController {
 
-	@Autowired
-	private VacationStatusRepository vacationStatusRepository;
+    private final VacationStatusRepository vacationStatusRepository;
 
-	private ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = new ModelMapper();
 
-	@GetMapping("")
-	public ResponseEntity<Page<VacationStatus>> getVacationStatusPaginated(
-			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
-		return new ResponseEntity<>(vacationStatusRepository.findAll(PageRequest.of(pageIndex, pageSize)),
-				HttpStatus.OK);
-	}
+    @GetMapping("")
+    public ResponseEntity<Page<VacationStatus>> getVacationStatusPaginated(
+            @RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
+        return new ResponseEntity<>(vacationStatusRepository.findAll(PageRequest.of(pageIndex, pageSize)),
+                HttpStatus.OK);
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Optional<VacationStatus>> statusById(@PathVariable("id") int id) {
-		return new ResponseEntity<>(vacationStatusRepository.findById(id), HttpStatus.OK);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<VacationStatus>> statusById(@PathVariable("id") int id) {
+        return new ResponseEntity<>(vacationStatusRepository.findById(id), HttpStatus.OK);
+    }
 
-	@PostMapping("/save")
-	public ResponseEntity<Object> saveVacationStatus(@RequestBody VacationStatusDTO status) {
-		return new ResponseEntity<>(vacationStatusRepository.saveAndFlush(mapper.map(status, VacationStatus.class)),
-				HttpStatus.CREATED);
-	}
+    @PostMapping("/save")
+    public ResponseEntity<Object> saveVacationStatus(@RequestBody VacationStatusDTO status) {
+        return new ResponseEntity<>(vacationStatusRepository.saveAndFlush(mapper.map(status, VacationStatus.class)),
+                HttpStatus.CREATED);
+    }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteVacationStatusById(@PathVariable("id") int id) {
-		vacationStatusRepository.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
-	}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteVacationStatusById(@PathVariable("id") int id) {
+        vacationStatusRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
 }

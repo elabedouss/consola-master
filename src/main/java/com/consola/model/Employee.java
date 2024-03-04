@@ -1,5 +1,6 @@
 package com.consola.model;
 
+import java.io.Serial;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -21,9 +22,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Employee", catalog = "consola")
+@Table(name = "Employee")
 public class Employee implements java.io.Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "username", unique = true, nullable = false)

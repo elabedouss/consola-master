@@ -3,8 +3,8 @@ package com.consola.rest;
 import java.util.List;
 import java.util.Optional;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -24,62 +24,62 @@ import com.consola.model.Vacation;
 import com.consola.model.VacationStatus;
 import com.consola.repositories.VacationRepository;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/vacations")
 public class VacationRestController {
 
-	@Autowired
-	private VacationRepository vacationRepository;
+    private final VacationRepository vacationRepository;
 
-	private ModelMapper mapper = new ModelMapper();
+    private final ModelMapper mapper = new ModelMapper();
 
-	@GetMapping("")
-	public ResponseEntity<Page<Vacation>> vacations(
-			@RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-			@RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
-		return new ResponseEntity<>(vacationRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
-	}
+    @GetMapping("")
+    public ResponseEntity<Page<Vacation>> vacations(
+            @RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam(name = "pageIndex", defaultValue = "0", required = false) Integer pageIndex) {
+        return new ResponseEntity<>(vacationRepository.findAll(PageRequest.of(pageIndex, pageSize)), HttpStatus.OK);
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Vacation>> vacationById(@PathVariable("id") int id) {
-		return new ResponseEntity<>(vacationRepository.findById(id), HttpStatus.OK);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Vacation>> vacationById(@PathVariable("id") int id) {
+        return new ResponseEntity<>(vacationRepository.findById(id), HttpStatus.OK);
+    }
 
-	@GetMapping("/approve/{id}")
-	public void approveVacation(@PathVariable("id") int id) {
-		Optional<Vacation> op = vacationRepository.findById(id);
-		if (op.isPresent()) {
-			Vacation v = op.get();
-			v.setVacationStatus(new VacationStatus(2));
-			vacationRepository.save(v);
-		}
-	}
+    @GetMapping("/approve/{id}")
+    public void approveVacation(@PathVariable("id") int id) {
+        Optional<Vacation> op = vacationRepository.findById(id);
+        if (op.isPresent()) {
+            Vacation v = op.get();
+            v.setVacationStatus(new VacationStatus(2));
+            vacationRepository.save(v);
+        }
+    }
 
-	@GetMapping("/reject/{id}")
-	public void rejectVacation(@PathVariable("id") int id) {
-		Optional<Vacation> op = vacationRepository.findById(id);
-		if (op.isPresent()) {
-			Vacation v = op.get();
-			v.setVacationStatus(new VacationStatus(3));
-			vacationRepository.save(v);
-		}
-	}
+    @GetMapping("/reject/{id}")
+    public void rejectVacation(@PathVariable("id") int id) {
+        Optional<Vacation> op = vacationRepository.findById(id);
+        if (op.isPresent()) {
+            Vacation v = op.get();
+            v.setVacationStatus(new VacationStatus(3));
+            vacationRepository.save(v);
+        }
+    }
 
-	@PostMapping("/save")
-	public ResponseEntity<Object> saveVacation(@RequestBody VacationDTO vacation) {
-		return new ResponseEntity<>(vacationRepository.saveAndFlush(mapper.map(vacation, Vacation.class)),
-				HttpStatus.CREATED);
-	}
+    @PostMapping("/save")
+    public ResponseEntity<Object> saveVacation(@RequestBody VacationDTO vacation) {
+        return new ResponseEntity<>(vacationRepository.saveAndFlush(mapper.map(vacation, Vacation.class)),
+                HttpStatus.CREATED);
+    }
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteVacationById(@PathVariable("id") int id) {
-		vacationRepository.deleteById(id);
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
-	}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteVacationById(@PathVariable("id") int id) {
+        vacationRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
-	@GetMapping("/username/{username}")
-	public ResponseEntity<List<Vacation>> allVacationsByUsername(@PathVariable("username") String username) {
-		return new ResponseEntity<>(vacationRepository.findAllByEmployee(new Employee(username)), HttpStatus.OK);
+    @GetMapping("/username/{username}")
+    public ResponseEntity<List<Vacation>> allVacationsByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity<>(vacationRepository.findAllByEmployee(new Employee(username)), HttpStatus.OK);
 
-	}
+    }
 }
