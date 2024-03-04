@@ -1,1 +1,10 @@
-# consola-backend
+## QA
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=elabedouss_consola-backend&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=elabedouss_consola-backend)
