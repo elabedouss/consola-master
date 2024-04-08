@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+COPY . .
+
 RUN npm install -g npm@10.5.1
 
 COPY . .
