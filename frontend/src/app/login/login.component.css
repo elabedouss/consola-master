@@ -1,0 +1,24 @@
+.mat-card-custom {
+  max-width: 400px;
+  background-color: steelblue;
+}
+
+.center-content {
+  margin-top: 100px;
+  text-align: -webkit-center;
+}
+
+.mat-form-field-custom {
+  margin-top: 10px;
+  width: 100%;
+}
+.mat-button {
+  margin-top: 10px;
+  width: 100%;
+  color: steelblue;
+  height: 40px;
+  background-color: white;
+}
+.mat-error {
+  color: white;
+}

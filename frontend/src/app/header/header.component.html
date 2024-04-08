@@ -1,0 +1,33 @@
+<mat-sidenav-container fullscreen class="mat-sidenav-container-custom">
+  <mat-sidenav mode="side" #sidenav opened position="start">
+    <div *ngIf="isAuthenticated">
+      <button mat-button *ngFor="let item of menuItems" (click)="redirctToRouterLink(item)">
+        <mat-icon class="mr">{{ item.icon }}</mat-icon>
+        {{ item.label }}
+      </button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="mat-toolbar-custom">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-spacer"></span>
+      <button mat-button class="home" (click)="redirectToHomePage()">
+        <mat-icon class="mr">home</mat-icon>Consola
+      </button>
+      <span class="toolbar-spacer"></span>
+      <button mat-button (click)="redirectToHomePage()">
+        {{ loggedFullName }}
+      </button>
+      <button mat-button (click)="signOut()">
+        <mat-icon class="mr">logout</mat-icon>
+        Sign Out
+      </button>
+
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

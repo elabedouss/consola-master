@@ -1,0 +1,11 @@
+.footer {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: steelblue;
+  color: white;
+  font: 300 15px/60px Roboto, "Helvetica Neue", sans-serif;
+}

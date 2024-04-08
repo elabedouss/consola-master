@@ -1,0 +1,24 @@
+.cutom-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cutom-form > * {
+  width: 100%;
+}
+
+.mat-dialog-title {
+  text-align: center;
+}
+
+.mat-button {
+  margin-top: 10px;
+  width: 100%;
+  color: steelblue;
+  height: 40px;
+  background-color: white;
+}
+
+.mat-error {
+  color: white;
+}  

@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16.2
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: consola
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: consola-backend/.
+      dockerfile: Dockerfile
+    container_name: consola-backend
+
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: consola-frontend/.
+      dockerfile: Dockerfile
+    container_name: consola-frontend
+    environment:
+      backend: consola-backend
+    ports:
+      - 4200:80
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  postgres-data:

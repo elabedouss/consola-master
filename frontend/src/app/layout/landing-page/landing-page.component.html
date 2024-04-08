@@ -1,0 +1,75 @@
+<div>
+  <br />
+  <div class="container">
+    <div class="container">
+      <div
+        fxLayout="column"
+        fxLayoutGap="20px"
+        fxLayout.gt-md="row"
+        fxLayoutAlign="space-around center"
+        class="content"
+      ></div>
+    </div>
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card class="card">
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <h3 class="form-title">Vacations preview</h3>
+          </mat-card-title>
+          <br />
+          <mat-card-content>
+            <div class="row">
+              <div class="col-md-10">
+                <div class="btn-group">
+                  <div
+                    class="btn btn-primary"
+                    mwlCalendarPreviousView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                  >
+                    Previous
+                  </div>
+                  <div
+                    class="btn btn-outline-secondary"
+                    mwlCalendarToday
+                    [(viewDate)]="viewDate"
+                  >
+                    Today
+                  </div>
+                  <div
+                    class="btn btn-primary"
+                    mwlCalendarNextView
+                    [view]="view"
+                    [(viewDate)]="viewDate"
+                  >
+                    Next
+                  </div>
+                </div>
+              </div>
+              <h1 class="month-title">
+                {{ viewDate | calendarDate: view + "ViewTitle":"en" }}
+              </h1>
+            </div>
+
+            <mwl-calendar-month-view
+              [viewDate]="viewDate"
+              [events]="events"
+              (beforeViewRender)="beforeMonthViewRender($event)"
+            >
+            </mwl-calendar-month-view>
+            <br />
+            <br />
+            <button mat-button class="mat-button-pending">Pending</button>
+            <span class="toolbar-spacer"></span>
+            <button mat-button class="mat-button-approved">Approved</button>
+            <span class="toolbar-spacer"></span>
+            <button mat-button class="mat-button-rejected">Rejected</button>
+            <span class="toolbar-spacer"></span>
+            <button mat-button class="mat-button-today">Today</button>
+            <span class="toolbar-spacer"></span>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div>
+  <br />
+  <div class="container">
+    <div class="container">
+      <div
+        fxLayout="column"
+        fxLayoutGap="20px"
+        fxLayout.gt-md="row"
+        fxLayoutAlign="space-around center"
+        class="content"
+      ></div>
+    </div>
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card class="card">
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <div class="blocks">
+              <button
+                mat-icon-button
+                class="mat-raised-button-custom"
+                matTooltip="Add staus"
+                (click)="addStatus()"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <h3 class="table-title">Vacation status management</h3>
+          </mat-card-title>
+          <br />
+          <mat-card-content>
+            <div class="mat-elevation-z8">
+              <div fxLayout class="parent-filter-input"  fxLayoutAlign="center center">
+                <mat-form-field class="mat-form-field-filter-input" fxFlex="40%">
+                  <input
+                    matInput
+                    type="text"
+                    (keyup)="filterStatus($event)"
+                    placeholder="Filter"
+                    class="filter-input"
+                  />
+                </mat-form-field>
+              </div>
+              <mat-table
+                mat-table
+                matSort
+                matTableFilter
+                [dataSource]="dataSource"
+                (matSortChange)="sortStatus($event)"
+              >
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                  >Id</mat-header-cell
+                >
+                <mat-cell *matCellDef="let status">{{
+                  status.id
+                }}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header
+                  >Name</mat-header-cell
+                >
+                <mat-cell *matCellDef="let status">{{
+                  status.name
+                }}</mat-cell>
+              </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let status"
+                    ><button
+                      mat-icon-button
+                      matTooltip="Edit status"
+                      (click)="editStatus(status.id)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      matTooltip="Delete status"
+                      (click)="deleteStatus(status.id)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                  *matHeaderRowDef="displayedColumns"
+                ></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+              </mat-table>
+              <mat-paginator
+                [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="pageIndex"
+              >
+              </mat-paginator>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>  

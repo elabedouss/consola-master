@@ -1,0 +1,143 @@
+<div>
+  <br />
+  <div class="container">
+    <div class="container">
+      <div
+        fxLayout="column"
+        fxLayoutGap="20px"
+        fxLayout.gt-md="row"
+        fxLayoutAlign="space-around center"
+        class="content"
+      ></div>
+    </div>
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card class="card">
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <div class="blocks">
+              <button
+                mat-icon-button
+                class="mat-raised-button-custom"
+                matTooltip="Add project"
+                (click)="addProject()"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <h3 class="table-title">Projects management</h3>
+          </mat-card-title>
+          <br />
+          <mat-card-content>
+            <div class="mat-elevation-z8">
+              <div
+                fxLayout
+                class="parent-filter-input"
+                fxLayoutAlign="center center"
+              >
+                <mat-form-field
+                  class="mat-form-field-filter-input"
+                  fxFlex="40%"
+                >
+                  <input
+                    matInput
+                    type="text"
+                    (keyup)="filterProjects($event)"
+                    placeholder="Filter"
+                    class="filter-input"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+              </div>
+              <mat-table
+                mat-table
+                matSort
+                matTableFilter
+                [dataSource]="dataSource"
+                (matSortChange)="sortProjects($event)"
+              >
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Status</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let project">{{
+                    project.status.name
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Name</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let project">{{
+                    project.name
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="shortName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Short name</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let project">{{
+                    project.shortName
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="startDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Start date</mat-header-cell
+                  >
+                  <mat-cell class="duration-cell" *matCellDef="let project">{{
+                    project.startDate
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="endDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >End date</mat-header-cell
+                  >
+                  <mat-cell class="duration-cell" *matCellDef="let project">{{
+                    project.endDate
+                  }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let project"
+                    ><button
+                      mat-icon-button
+                      matTooltip="Edit project"
+                      (click)="editProject(project.id)"
+                    >
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      matTooltip="Delete project"
+                      (click)="deleteProject(project.id)"
+                    >
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                  *matHeaderRowDef="displayedColumns"
+                ></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+              </mat-table>
+              <mat-paginator
+                [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="pageIndex"
+              >
+              </mat-paginator>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

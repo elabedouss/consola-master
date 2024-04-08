@@ -1,0 +1,33 @@
+.mat-table {
+  background-color: steelblue;
+}
+
+.table-title {
+  color: black;
+  font-weight: 500;
+}
+
+.mat-raised-button-custom {
+  background-color: steelblue;
+  float: right;
+}
+
+.mat-divider {
+  background-color: steelblue;
+}
+
+.mat-paginator {
+  background-color: steelblue;
+}
+
+.parent-filter-input {
+  background-color: steelblue;
+  text-align: center;
+}
+
+.mat-form-field-filter-input {
+  font-size: 16px;
+  text-align: center;
+  width: 30%;
+  font-weight: 500;
+}

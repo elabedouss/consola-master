@@ -1,0 +1,116 @@
+<div>
+  <br />
+  <div class="container">
+    <div class="container">
+      <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" fxLayoutAlign="space-around center"
+        class="content"></div>
+    </div>
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card class="card">
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <div class="blocks">
+              <button mat-icon-button class="mat-raised-button-custom" matTooltip="Add employee"
+                (click)="addEmployee()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <h3 class="table-title">Employees management</h3>
+          </mat-card-title>
+          <br />
+          <mat-card-content>
+            <div class="mat-elevation-z8">
+              <div fxLayout class="parent-filter-input" fxLayoutAlign="center center">
+                <mat-form-field class="mat-form-field-filter-input" fxFlex="40%">
+                  <input matInput type="text" (keyup)="filterEmployees($event)" placeholder="Filter"
+                    class="filter-input" />
+                </mat-form-field>
+              </div>
+              <mat-table mat-table matSort matTableFilter [dataSource]="dataSource"
+                (matSortChange)="sortEmployees($event)">
+
+                <ng-container matColumnDef="username">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+                  <mat-cell *matCellDef="let employee">{{
+                    employee.username
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="fullName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+                  <mat-cell *matCellDef="let employee">{{
+                    employee.fullName
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="role">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let employee">{{
+                    employee.role.name
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="responsible">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Responsible</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let employee">
+                    <p *ngIf="employee.responsible">
+                      {{employee.responsible.fullName}}
+                    </p>
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="joinDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Join Date</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let employee">{{
+                    employee.joinDate
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="leaveDate">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Leave Date</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let employee">{{
+                    employee.leaveDate
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="initialBalance">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Initial Balance</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let employee">{{
+                    employee.initialBalance
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="currentBalance">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Current Balance</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let employee">{{
+                    employee.currentBalance
+                    }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                  <mat-cell class="duration-cell" *matCellDef="let employee"><button mat-icon-button
+                      matTooltip="Edit employee" (click)="editEmployee(employee.username)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Delete employee" (click)="deleteEmployee(employee.username)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+                <mat-row *matRowDef="let row; columns: displayedColumns">
+                </mat-row>
+              </mat-table>
+              <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="pageIndex">
+              </mat-paginator>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

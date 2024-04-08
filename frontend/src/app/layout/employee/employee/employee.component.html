@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>{{ data.action }} employee</h1>
+<div mat-dialog-content>
+    <form class="cutom-form" name="employeeForm" [formGroup]="employeeForm">
+        <mat-form-field>
+            <input matInput placeholder="Username" type="text" required name="username" formControlName="username" autocomplete="off" />
+            <mat-error *ngIf="employeeForm.controls.username.hasError('required')">Please fill the username</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Full Name" type="text" required name="fullName" formControlName="fullName" autocomplete="off" />
+            <mat-error *ngIf="employeeForm.controls.fullName.hasError('required')">Please fill the fullName</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Email" type="text" required name="email" formControlName="email" autocomplete="off" />
+            <mat-error *ngIf="employeeForm.controls.email.hasError('required')">Please fill the email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select matInput placeholder="Role" required name="role" formControlName="role">
+                <mat-option style="background-color: white; color: steelblue" *ngFor="let r of roleList" [value]="r.id">
+                    {{ r.name }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="employeeForm.controls.role.hasError('required')">Please choose a Role</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select matInput placeholder="Responsible" name="responsible" formControlName="responsible">
+                <mat-option style="background-color: white; color: steelblue" *ngFor="let r of responsiblesList" [value]="r.username">
+                    {{ r.fullName }}
+                </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="employeeForm.controls.role.hasError('required')">Please choose a Responsible</mat-error> -->
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Initial Balance" type="number" required name="initialBalance" formControlName="initialBalance" autocomplete="off" />
+            <mat-error *ngIf="employeeForm.controls.initialBalance.hasError('required')">Please fill the Initial Balance</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Current Balance" type="number" required name="currentBalance" formControlName="currentBalance" autocomplete="off" />
+            <mat-error *ngIf="employeeForm.controls.currentBalance.hasError('required')">Please fill the Current Balance</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Join Date</mat-label>
+            <input name="joinDate" formControlName="joinDate" placeholder="Join Date" autocomplete="off" matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="employeeForm.controls.joinDate.hasError('required')">Please fill the Join Date</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Leave Date</mat-label>
+            <input name="leaveDate" formControlName="leaveDate" placeholder="Leave Date" autocomplete="off" matInput [matDatepicker]="picker2">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <button mat-button mat-raised-button color="primary" [disabled]="employeeForm.invalid" (click)="saveEmployee()">
+            Save
+        </button>
+        <button mat-button mat-raised-button mat-dialog-close>Cancel</button>
+    </form>
+</div>

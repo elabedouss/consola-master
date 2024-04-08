@@ -1,0 +1,36 @@
+<div>
+    <br />
+    <div class="container">
+        <div class="container">
+            <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" fxLayoutAlign="space-around center"
+                class="content"></div>
+        </div>
+        <div class="container">
+            <div fxLayout="row" fxLayoutAlign="center center" class="content">
+                <mat-card class="card">
+                    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+                        <h3 class="table-title">Projects overview</h3>
+                    </mat-card-title>
+                    <br />
+                    <mat-card-content>
+                        <div class="mat-elevation-z8">
+                            <div class="project-card" *ngFor="let project of projects">
+                                <button mat-icon-button class="mat-raised-button-custom" matTooltip="Add Employee"
+                                    (click)="addEmployee(project.id)">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                                <p class="list-title">{{project.name}} - {{project.shortName}} - {{project.status.name}}
+                                </p>
+                                <ul class="employees-list">
+                                    <li *ngFor="let employee of project.employees">
+                                        {{employee.fullName}} - {{employee.role.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="center-content">
+  <mat-card class="mat-card-custom">
+    <mat-card-title>Welcome to Consola</mat-card-title>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Login">
+          <form name="loginForm" [formGroup]="loginForm">
+            <mat-form-field class="mat-form-field-custom">
+              <mat-label>Username</mat-label>
+              <input
+                type="username"
+                matInput
+                placeholder="Username"
+                autocomplete="off"
+                formControlName="username"
+              />
+              <mat-error
+                *ngIf="loginForm.controls.username.hasError('required')"
+                >Please fill the username</mat-error
+              >
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="mat-form-field-custom">
+              <mat-label>Password</mat-label>
+              <input
+                type="password"
+                matInput
+                placeholder="Password"
+                autocomplete="off"
+                formControlName="password"
+              />
+              <mat-error
+                *ngIf="loginForm.controls.password.hasError('required')"
+                >Please fill the password</mat-error
+              >
+              <mat-icon matSuffix>vpn_key</mat-icon>
+            </mat-form-field>
+          </form>
+          <button
+            mat-button
+            mat-raised-button
+            color="primary"
+            (click)="login()"
+            [disabled]="loginForm.invalid"
+          >
+            <mat-icon matSuffix>login</mat-icon> Login
+          </button>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

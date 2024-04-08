@@ -1,0 +1,50 @@
+<h1 mat-dialog-title>{{ data.action }} vacation</h1>
+<div mat-dialog-content>
+  <form class="cutom-form" name="vacationForm" [formGroup]="vacationForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="duration"
+        type="text"
+        required
+        name="duration"
+        formControlName="duration"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="vacationForm.controls.duration.hasError('required')">Please fill the duration</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Start Date</mat-label>
+      <input name="startDate" formControlName="startDate" placeholder="Start Date" autocomplete="off" matInput [matDatepicker]="picker1">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+      <mat-error *ngIf="vacationForm.controls.startDate.hasError('required')">Please fill the Start Date</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>End Date</mat-label>
+        <input name="endDate" formControlName="endDate" placeholder="End Date" autocomplete="off" matInput [matDatepicker]="picker2">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="vacationForm.controls.endDate.hasError('required')">Please fill the End Date</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="comment"
+        type="text"
+        required
+        name="comment"
+        formControlName="comment"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="vacationForm.controls.comment.hasError('required')">Please fill the comment</mat-error>
+    </mat-form-field>
+    <button mat-button mat-raised-button color="primary" [disabled]="vacationForm.invalid" (click)="saveVacation()">
+      Save
+    </button>
+    <button mat-button mat-raised-button mat-dialog-close>Cancel</button>
+  </form>
+</div>

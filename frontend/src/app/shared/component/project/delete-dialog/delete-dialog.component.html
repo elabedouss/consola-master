@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Delete {{data.entity}}</h1>
+<div mat-dialog-content>
+  <p>Are you sure?</p>
+</div>
+<div mat-dialog-actions>
+  <button *ngIf="data.entity=='status'" mat-button (click)="deleteStatus()">Yes</button>
+  <button *ngIf="data.entity=='vacation-status'" mat-button (click)="deleteVacationStatus()">Yes</button>
+  <button *ngIf="data.entity=='project'" mat-button (click)="deleteProject()">Yes</button>
+  <button *ngIf="data.entity=='role'" mat-button (click)="deleteRole()">Yes</button>
+  <button *ngIf="data.entity=='employee'" mat-button (click)="deleteEmployee()">Yes</button>
+  <button *ngIf="data.entity=='vacation'" mat-button (click)="deleteVacation()">Yes</button>
+  <button mat-button (click)="cancel()">No, go back</button>
+</div>

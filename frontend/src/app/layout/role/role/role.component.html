@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>{{ data.action }} role</h1>
+<div mat-dialog-content>
+  <form class="cutom-form" name="roleForm" [formGroup]="roleForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Name"
+        type="text"
+        required
+        name="name"
+        formControlName="name"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="roleForm.controls.name.hasError('required')"
+        >Please fill the name</mat-error
+      >
+    </mat-form-field>
+    
+    <button
+      mat-button
+      mat-raised-button
+      color="primary"
+      [disabled]="roleForm.invalid"
+      (click)="saveRole()"
+    >
+      Save
+    </button>
+    <button mat-button mat-raised-button mat-dialog-close>Cancel</button>
+  </form>
+</div>
+<div></div>

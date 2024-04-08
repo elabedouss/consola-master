@@ -1,0 +1,63 @@
+.form-title {
+  color: black;
+  font-weight: 500;
+}
+
+.month-title {
+  color: black;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background-color: steelblue;
+}
+
+.status-mark {
+  color: black;
+  font-weight: 400;
+}
+
+.mat-button-pending {
+  color: black;
+  background-color: rgb(245, 245, 92);
+}
+.mat-button-approved {
+  color: black;
+  background-color: rgb(23, 219, 72);
+}
+.mat-button-rejected {
+  color: black;
+  background-color: rgb(252, 70, 70);
+}
+
+.mat-button-today {
+  color: black;
+  background-color: #e8fde7 !important;
+}
+.toolbar-spacer {
+  margin-right: 5px;
+}
+
+::ng-deep .cal-month-view .cal-cell-row .cal-cell {
+  color: black !important;
+}
+::ng-deep .cal-weekend {
+  background-color: rgb(226, 226, 226) !important;
+}
+
+::ng-deep .cal-month-view .bg-pending {
+  background-color: rgb(245, 245, 92);
+}
+
+::ng-deep .cal-month-view .bg-approved {
+  background-color: rgb(23, 219, 72);
+}
+
+::ng-deep .cal-month-view .bg-rejected {
+  background-color: rgb(252, 70, 70);
+}
+
+/*must be at the end of the class*/
+::ng-deep .cal-today {
+  background-color: #e8fde7 !important;
+}

@@ -1,0 +1,95 @@
+<div>
+    <br />
+    <div class="container">
+        <div class="container">
+            <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" fxLayoutAlign="space-around center"
+                class="content"></div>
+        </div>
+        <div class="container">
+            <div fxLayout="row" fxLayoutAlign="center center" class="content">
+                <mat-card class="card">
+                    <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+                        <h3 class="table-title"> Supervisor Account: vacation management </h3>
+                    </mat-card-title>
+                    <br />
+                    <mat-card-content>
+                        <div class="mat-elevation-z8">
+                            <div fxLayout class="parent-filter-input" fxLayoutAlign="center center">
+                                <mat-form-field class="mat-form-field-filter-input" fxFlex="40%">
+                                    <input matInput type="text" (keyup)="filterVacations($event)" placeholder="Filter"
+                                        class="filter-input" />
+                                </mat-form-field>
+                            </div>
+                            <mat-table mat-table matSort matTableFilter [dataSource]="dataSource"
+                                (matSortChange)="sortVacations($event)">
+                                <ng-container matColumnDef="id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                                    <mat-cell *matCellDef="let vacation">{{
+                                        vacation.id
+                                        }}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="requestDate">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Request Date</mat-header-cell>
+                                    <mat-cell *matCellDef="let vacation">{{
+                                        vacation.requestDate
+                                        }}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="startDate">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</mat-header-cell>
+                                    <mat-cell *matCellDef="let vacation">{{
+                                        vacation.startDate
+                                        }}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="endDate">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>End Date</mat-header-cell>
+                                    <mat-cell *matCellDef="let vacation">{{
+                                        vacation.endDate
+                                        }}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="duration">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Duration</mat-header-cell>
+                                    <mat-cell class="duration-cell" *matCellDef="let vacation">{{
+                                        vacation.duration
+                                        }}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="status">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                                    <mat-cell *matCellDef="let vacation">{{
+                                        vacation.vacationStatus.name
+                                        }}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="action">
+                                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                                    <mat-cell class="duration-cell" *matCellDef="let vacation">
+                                        <button mat-icon-button matTooltip="Approve vacation"
+                                            (click)="approveVacation(vacation.id)">
+                                            <mat-icon>done_outline</mat-icon>
+                                        </button>
+                                        <button mat-icon-button matTooltip="Reject vacation"
+                                            (click)="rejectVacation(vacation.id)">
+                                            <mat-icon>block</mat-icon>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+                                <mat-row *matRowDef="let row; columns: displayedColumns">
+                                </mat-row>
+                            </mat-table>
+                            <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                                [pageIndex]="pageIndex">
+                            </mat-paginator>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<h1 mat-dialog-title>{{ data.action }} project</h1>
+<div mat-dialog-content>
+  <form class="cutom-form" name="projectForm" [formGroup]="projectForm">
+    <mat-form-field>
+      <mat-select
+        matInput
+        placeholder="Status"
+        required
+        name="status"
+        formControlName="status"
+      >
+        <mat-option
+          style="background-color: white; color: steelblue"
+          *ngFor="let s of statusList"
+          [value]="s.id"
+        >
+          {{ s.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="projectForm.controls.status.hasError('required')"
+        >Please choose a status</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Name"
+        type="text"
+        required
+        name="name"
+        formControlName="name"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="projectForm.controls.name.hasError('required')"
+        >Please fill the name</mat-error
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Short name"
+        type="text"
+        required
+        name="shortName"
+        formControlName="shortName"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="projectForm.controls.shortName.hasError('required')"
+        >Please fill the short name</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          formControlName="startDate"
+          placeholder="Start date"
+          autocomplete="off"
+        />
+        <input
+          matEndDate
+          formControlName="endDate"
+          placeholder="End date"
+          autocomplete="off"
+        />
+        <mat-error
+          *ngIf="
+            projectForm.controls.startDate.hasError('required') ||
+            projectForm.controls.endDate.hasError('required')
+          "
+          >Please fill the short name</mat-error
+        >
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <button
+      mat-button
+      mat-raised-button
+      color="primary"
+      [disabled]="projectForm.invalid"
+      (click)="saveProject()"
+    >
+      Save
+    </button>
+    <button mat-button mat-raised-button mat-dialog-close>Cancel</button>
+  </form>
+</div>
+<div></div>
