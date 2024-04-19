@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Project } from 'src/app/shared/model/project';
@@ -14,12 +14,12 @@ import { StatusService } from 'src/app/shared/service/status.service';
 })
 export class ProjectComponent implements OnInit {
   // declartion
-  public projectForm!: FormGroup;
+  public projectForm!: UntypedFormGroup;
   public statusList: Status[] = [];
   public projectObj: Project = new Project();
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private statusService: StatusService,
     private projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectComponent>,

@@ -121,5 +121,7 @@
       }
     }
   },
-  "defaultProject": "ConsolaFrontend"
+  "cli": {
+    "analytics": "2af64bc6-7a77-4b3f-97bb-aa94db5df2a5"
+  }
 }

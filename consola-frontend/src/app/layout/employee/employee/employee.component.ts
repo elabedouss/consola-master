@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Employee } from 'src/app/shared/model/employee';
@@ -15,13 +15,13 @@ import { RoleService } from 'src/app/shared/service/role.service';
 export class EmployeeComponent implements OnInit {
 
   // declartion
-  public employeeForm!: FormGroup;
+  public employeeForm!: UntypedFormGroup;
   public roleList: Role[] = [];
   public responsiblesList: Employee[] = [];
   public employeeObj: Employee = new Employee();
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private roleService: RoleService,
     private employeeService: EmployeeService,
     public dialogRef: MatDialogRef<EmployeeComponent>,

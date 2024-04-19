@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Employee } from "src/app/shared/model/employee";
 import { LoginDTO } from "src/app/shared/model/login-dto";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { LoginService } from "../shared/service/login.service";
@@ -15,12 +15,12 @@ import { HeaderComponent } from "../header/header.component";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-  public loginForm!: FormGroup;
+  public loginForm!: UntypedFormGroup;
   public employeeObj: Employee = new Employee();
   private loginDTO: LoginDTO = new LoginDTO();
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private loginService: LoginService,

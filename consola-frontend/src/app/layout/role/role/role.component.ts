@@ -1,6 +1,6 @@
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Role } from 'src/app/shared/model/role';
@@ -14,11 +14,11 @@ import { RoleService } from 'src/app/shared/service/role.service';
 export class RoleComponent implements OnInit {
 
   // declartion
-  public roleForm!: FormGroup;
+  public roleForm!: UntypedFormGroup;
   public roleObj: Role = new Role();
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private roleService: RoleService,
     public dialogRef: MatDialogRef<RoleComponent>,
     private snackBar: MatSnackBar,

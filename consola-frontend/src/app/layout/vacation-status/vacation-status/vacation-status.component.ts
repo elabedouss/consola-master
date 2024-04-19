@@ -1,6 +1,6 @@
 import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VacationStatus } from 'src/app/shared/model/vacation-status';
@@ -14,11 +14,11 @@ import { VacationStatusService } from 'src/app/shared/service/vacation-status.se
 export class VacationStatusComponent implements OnInit {
 
  // declartion
- public statusForm!: FormGroup;
+ public statusForm!: UntypedFormGroup;
  public statusObj: VacationStatus = new VacationStatus();
 
  constructor(
-   private formBuilder: FormBuilder,
+   private formBuilder: UntypedFormBuilder,
    private vacationStatusService: VacationStatusService,
    public dialogRef: MatDialogRef<VacationStatusComponent>,
    private snackBar: MatSnackBar,

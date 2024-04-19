@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProjectService } from 'src/app/shared/service/project.service';
@@ -14,13 +14,13 @@ import { Employee } from 'src/app/shared/model/employee';
 })
 export class ProjectEmployeeComponent implements OnInit {
  // declartion
- public projectEmployeeForm!: FormGroup;
+ public projectEmployeeForm!: UntypedFormGroup;
  public employeeList: Employee[] = [];
  public projectObj: Project = new Project();
  public projectEmployee: ProjectEmployee = new ProjectEmployee();
 
  constructor(
-   private formBuilder: FormBuilder,
+   private formBuilder: UntypedFormBuilder,
    private employeeService: EmployeeService,
    private projectService: ProjectService,
    public dialogRef: MatDialogRef<ProjectEmployeeComponent>,

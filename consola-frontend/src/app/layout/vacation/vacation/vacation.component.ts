@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Vacation } from 'src/app/shared/model/vacation';
@@ -15,11 +15,11 @@ import { LoginService } from "src/app/shared/service/login.service";
 })
 export class VacationComponent implements OnInit {
  // declartion
- public vacationForm!: FormGroup;
+ public vacationForm!: UntypedFormGroup;
  public vacationObj: Vacation = new Vacation();
 
  constructor(
-   private formBuilder: FormBuilder,
+   private formBuilder: UntypedFormBuilder,
    private vacationService: VacationService,
    private loginService: LoginService,
    public dialogRef: MatDialogRef<VacationComponent>,
