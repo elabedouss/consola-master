@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginDTO } from '../model/login-dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private url: string = 'http://localhost:8080/';
-  public isAuthenticated=false;
-  
-  constructor(private http: HttpClient) {}
+  private url: string = environment.apiUrl;
+
+  public isAuthenticated = false;
+
+  constructor(private http: HttpClient) { }
 
   login(loginDTO: LoginDTO): any {
     return this.http.post(this.url + 'api/employees/login', loginDTO);
@@ -26,15 +28,15 @@ export class LoginService {
       loggedUsername = temp.toString();
     }
     return loggedUsername;
-   }
+  }
 
-   public getLoggedFullName(): string {
+  public getLoggedFullName(): string {
     let loggedFullName = '';
     let temp = sessionStorage.getItem("loggedFullName");
     if (temp) {
       loggedFullName = temp.toString();
     }
     return loggedFullName;
-   }
+  }
 
 }

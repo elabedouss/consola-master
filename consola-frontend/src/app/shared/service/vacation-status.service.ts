@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Status } from '../model/status';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VacationStatusService {
-  private url: string = 'http://localhost:8080/';
+  private url: string = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

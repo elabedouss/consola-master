@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../model/project';
 import { ProjectEmployee } from '../model/project-employee';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  private url: string = 'http://localhost:8080/';
+  private url: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllProjects(pageIndex: number, pageSize: number): any {
     return this.http.get(
@@ -31,7 +32,7 @@ export class ProjectService {
   }
 
   saveProjectEmployee(projectEmployee: ProjectEmployee): Observable<any> {
-    return this.http.post(this.url + 'api/projects/project-employee',projectEmployee);
+    return this.http.post(this.url + 'api/projects/project-employee', projectEmployee);
   }
 
   deleteProjectByid(id: number): any {

@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Notification } from '../model/notification';
 import { LoginService } from "src/app/shared/service/login.service";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  private url: string = 'http://localhost:8080/';
+  private url: string = environment.apiUrl;
 
   constructor(private http: HttpClient, private loginService: LoginService,) {
 
@@ -16,7 +15,7 @@ export class NotificationService {
 
   getAllNotifications(pageIndex: number, pageSize: number): any {
     return this.http.get(
-      this.url + 'api/notifications/user/'+this.loginService.getLoggedUsername()+'?pageIndex=' + pageIndex + '&pageSize=' + pageSize
+      this.url + 'api/notifications/user/' + this.loginService.getLoggedUsername() + '?pageIndex=' + pageIndex + '&pageSize=' + pageSize
     );
   }
 

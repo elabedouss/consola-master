@@ -2,12 +2,13 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Vacation } from "../model/vacation";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class VacationService {
-  private url: string = "http://localhost:8080/";
+  private url: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
